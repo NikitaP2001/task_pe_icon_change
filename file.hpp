@@ -56,10 +56,40 @@ public:
 
     virtual void resize(uint64_t new_size);
 
+    std::string read_cstr(int offset);
+
     mm_file(std::string fpath, bool readonly);
 
     ~mm_file();
 
+};
+
+
+#pragma pack(push, 1)
+struct IMPORT_DIRECTORY_TABLE {
+    DWORD ImportLookupTable;
+    DWORD TimeDataStamp;
+    DWORD ForwarderChain;
+    DWORD NameRva;
+    DWORD ImportAddressTable;
+};
+#pragma pack(pop)
+
+struct ILT32 {
+    union {
+        uint32_t ord_num : 16;
+        uint32_t rva_name_tbl : 31;
+    };
+    uint32_t flag : 1;
+};
+
+struct ILT64 {
+    union {
+        uint64_t ord_num : 16;
+        uint64_t rva_name_tbl : 31;
+    };
+    uint64_t : 32;
+    uint64_t flag : 1;
 };
 
 class pe_file : mm_file {
@@ -77,11 +107,13 @@ class pe_file : mm_file {
     DWORD sec_table_offset;
     IMAGE_SECTION_HEADER *sec_table = NULL;
 
+    int get_file_offset(uint64_t rva);
+
 public:
 
     pe_file(std::string path);
 
-    bool print_api_info();
+    int print_api_info();
 
     ~pe_file();
 

@@ -27,8 +27,8 @@ RLS_LDFLAGS = -Wl,--gc-sections,-s
 all: CCFLAGS += $(DBG_CCFLAGS)
 all: $(TARGET) 
 
-release: CCFLAGS += RLS_CCFLAGS
-release: LDFLAGS += RLS_LDFLAGS
+release: CCFLAGS += $(RLS_CCFLAGS)
+release: LDFLAGS += $(RLS_LDFLAGS)
 release: $(TARGET)
 
 $(TARGET): $(OBJECTS)

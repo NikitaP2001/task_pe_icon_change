@@ -1,3 +1,5 @@
+#ifndef MAIN_HPP
+#define MAIN_HPP
 #ifdef DEBUG
 #include <time.h>
 #include <iomanip>
@@ -8,7 +10,7 @@
 #define INFO(x) 												\
 { 																\
 	float t = ((float)clock()) / (CLOCKS_PER_SEC);				\
-	std::cerr << "[i]" << "[" << __FILE__ << "][" 				\
+	std::cout << "[i]" << "[" << __FILE__ << "][" 				\
 	<< __FUNCTION__ << "][" << __LINE__ << "] :" << std::fixed 	\
 	<< std::setprecision(2) << t << " " << x << std::endl; 		\
 } 																\
@@ -38,7 +40,7 @@ do {} while (0)
 #define SUCC(x) 												\
 { 																\
 	float t = ((float)clock()) / (CLOCKS_PER_SEC);				\
-	std::cerr << "[+]" << "[" << __FILE__ << "][" 				\
+	std::cout << "[+]" << "[" << __FILE__ << "][" 				\
 	<< __FUNCTION__ << "][" << __LINE__ << "] :" << std::fixed 	\
 	<< std::setprecision(2) << t << " " << x << std::endl; 		\
 } 																\
@@ -52,3 +54,5 @@ do {} while (0)
 #define SUCC(x) do {} while (0)
 	
 #endif
+
+#endif // MAIN_HPP
