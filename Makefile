@@ -9,11 +9,10 @@ INC_DIR = ./
 CPP_SRC = $(wildcard *.cpp)
 OBJECTS = $(CPP_SRC:.cpp=.o)
 
-# expect gnu g++
+# expect gnu c++
 CC=@c++
 LD=@c++
 RM=@-del /q 2>NUL
-AS=@ml64.exe 2>NUL
 
 CCFLAGS = -c
 DBG_CCFLAGS = -DDEBUG -g
@@ -38,4 +37,3 @@ $(TARGET): $(OBJECTS)
 .PHONY: clean
 clean:
 	$(RM) $(OBJECTS)	
-
