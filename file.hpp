@@ -56,6 +56,9 @@ public:
 
     virtual void resize(uint64_t new_size);
 
+    // calculate files entropy
+    double entropy();
+
     std::string read_cstr(int offset);
 
     mm_file(std::string fpath, bool readonly);

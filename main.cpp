@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
         if (WApiNum == -1)
             std::cerr << "Error reading pe file import info" << std::endl;
         INFO("numbers of api with W: " << WApiNum); // note: print only in debug build
+
+        std::cout << "image entropy: " << pe.entropy() << std::endl;
     }
 
     // replace icon
@@ -34,9 +36,12 @@ int main(int argc, char *argv[])
             if (ic.UpdatePeMainIcon(argv[1]) == 0)
                 SUCC("Icon updated");
 
+            std::cout << "icon entropy: " << ic.entropy() << std::endl;
+
         } catch (std::exception &ex) {
             std::cerr << "Icon update failed: " << ex.what() << std::endl;
         }
+
 
     }
 }

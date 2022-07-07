@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <algorithm>
 #include <stdlib.h>
-#include <iomanip>
+#include <cmath>
 
 #include "file.hpp"
 #include "main.hpp"
@@ -195,6 +195,26 @@ std::string mm_file::read_cstr(int offset)
         dest += c;
     }
     return dest;
+}
+
+double mm_file::entropy()
+{
+    uint64_t counts[256] = { 0 };
+    const char *fptr = static_cast<char*>(pView);
+
+    for (uint64_t i = 0; i < size(); i++) {
+        uint8_t byte = static_cast<uint8_t>(fptr[i]);
+        counts[byte] += 1;
+    }
+
+    double val = 0;
+    for (int i = 0; i < 256; i++) {
+        double p = (double)counts[i] / size();
+        if (p > 0)
+            val -= p * log2(p);
+    }
+
+    return val;
 }
 
 mm_file::~mm_file()
